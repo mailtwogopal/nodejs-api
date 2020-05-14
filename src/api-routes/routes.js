@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const businessLogic = require('./businesslogic')
+const businessLogic = require('../services/businesslogic')
 
 //to save users in mongodb
 router.post('/users', (request, response) => {
