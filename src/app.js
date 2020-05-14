@@ -3,10 +3,12 @@ const mongoClient = require('mongodb').MongoClient
 const bodyParser = require('body-parser')
 const routes = require('./api-routes/routes')
 const port = 4200;
-require("dotenv").config({path: __dirname + '/.env'})
-const url = process.env.CONNECTION_URL;
-const dbname = process.env.DATABASE_NAME;
+var config = require('./config/config')
 
+const dbname = config.DATABASE_NAME;
+const url = config.CONNECTION_URL;
+const collectionname = config.COLLECTION_NAME;
+console.log('env file ' + dbname);
 var app = express()
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended : true}))
@@ -17,7 +19,7 @@ app.listen(port, () => {
             throw error;
         }
         database = client.db(dbname);
-        collection = database.collection(process.env.COLLECTION_NAME);
+        collection = database.collection(collectionname);
         console.log("connection established to " + dbname);
     });
 })
