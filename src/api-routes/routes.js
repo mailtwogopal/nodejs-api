@@ -2,6 +2,11 @@ const express = require('express')
 const router = express.Router()
 const businessLogic = require('../services/businesslogic')
 
+//health-route
+router.get('/ping', (request, response)=> {
+    response.json({"result" : "pong"})
+})
+
 //to save users in mongodb
 router.post('/users', (request, response) => {
     businessLogic.insertUsers(request, response);
