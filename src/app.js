@@ -13,6 +13,7 @@ var app = express()
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended : true}))
 app.listen(port, () => {
+    console.log('changes for build testing from jenkins');
     console.log('app running on port' + port);
     mongoClient.connect(url, {useNewUrlParser : true}, (error, client) => {
         if(error) {
