@@ -16,17 +16,24 @@ pipeline{
         }
         stage('Build'){
             steps{
-                script{
-                    def buildnumber = 1
-                    echo "Build number hardcoded is : ${buildnumber}"
-                    try{
-                            sh "npm run build"
-                        }
-                        catch(err){
-                            echo "Error caught is : ${err}"
-                        }  
-                    }                              
+                parallel(
+                    "taskone" : {
+                        script{
+                            def buildnumber = 1
+                            echo "Build number hardcoded is : ${buildnumber}"                          
                 }
+                    },
+                    "tasktwo" : {
+                        script{
+                            try{
+                                sh "npm run build"
+                            }
+                            catch(err){
+                                echo "Error caught is : ${err}"
+                            }  
+                        }                                 
+                    }
+                )
             }
         }
     }
