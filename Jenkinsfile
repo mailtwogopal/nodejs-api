@@ -16,8 +16,11 @@ pipeline{
         }
         stage('Build'){
             steps{
-                        def buildnumber = 1
-                        echo "Build number hardcoded is : ${buildnumber}"                    
+                script{
+                    def buildnumber = 1
+                    echo "Build number hardcoded is : ${buildnumber}"  
+                }
+                                          
                         //try{
                             sh "npm run build"
                         //}
