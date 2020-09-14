@@ -21,7 +21,7 @@ pipeline{
                         script{
                             def buildnumber = 1
                             echo "Build number hardcoded is : ${buildnumber}"                          
-                }
+                        }
                     },
                     "tasktwo" : {
                         script{
@@ -37,3 +37,4 @@ pipeline{
             }
         }
     }
+}
