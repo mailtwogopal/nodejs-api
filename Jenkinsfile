@@ -18,13 +18,13 @@ pipeline{
             steps{
                         def buildnumber = 1
                         echo "Build number hardcoded is : ${buildnumber}"                    
-                        try{
+                        //try{
                             sh "npm run build"
-                        }
-                        catch(err){
-                              echo "Error caught is : ${err}"
-                        }
-                    }
+                        //}
+                        //catch(err){
+                          //    echo "Error caught is : ${err}"
+                        //}
+                }
             }
         }
     }
