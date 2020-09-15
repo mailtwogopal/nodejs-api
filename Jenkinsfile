@@ -1,10 +1,25 @@
 #!/usr/bin/env groovy
 pipeline{
-    agent { node {label 'jobs_all'}} //you can specify agent as any like agent any
+    agent { node {label 'jobs_all'}} //you can specify agent as any like "agent any"
 
-    //triggers to pollSCM every 5 mins
+    //parameterization
+    parameters{
+        choice(
+            choices : ['npm', 'maven'],
+            description: 'to do npm install only when a condition is met',
+            name: 'REQUESTED_ACTION'
+        )
+    }
+    
+    //trigger the build once manually for below cron to take effect
     triggers{
-        cron('H(30-59)/5 * * * *')
+        //triggers to pollSCM every 5 mins on 2nd half of every hour 
+        //below line commented on purpose not to trigger 
+        
+        //cron('H(30-59)/5 * * * *')
+
+        //below cron triggers every 3 hrs between 9am and 5pm on weekdays only
+        cron('H H(9-16)/3 * * 1-5')
     }
 
     //time out the whole pipeline if it is more than 1 mins
@@ -19,9 +34,13 @@ pipeline{
             }
         }
         stage('Install Dependencies'){
-            steps{
-                echo 'Installing dependencies'
-                sh "npm install"
+            when{
+                //one expression is required inside when
+                expression {params.REQUESTED_ACTION == 'npm'}
+                    steps{
+                        echo 'Installing dependencies'
+                        sh "npm install"
+            }
             }
         }
         stage('Build'){
