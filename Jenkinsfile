@@ -70,5 +70,22 @@ pipeline{
                 )
             }
         }
+    }//end of stages
+    post{
+        always{
+            echo 'This will run irrespective of build status'
+        }
+        success{
+            echo 'This msg will show only when build is successful'
+        }
+        failure{
+            echo 'This will show when build is failed'
+        }
+        unstable{
+            echo 'unstable state due to code violation, other causes'
+        }
+        changed{
+            echo 'This will run when current pipeline running at diff state from previous pipeline'
+        }
     }
 }
