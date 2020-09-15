@@ -30,7 +30,7 @@ pipeline{
                     "tasktwo" : {
                         script{
                             try{
-                                retry(10){ //retrying this step for 3 times
+                                retry(40){ //retrying this step for 3 times
                                     echo "within retry"
                                     sh "npm run build"
                                 }
