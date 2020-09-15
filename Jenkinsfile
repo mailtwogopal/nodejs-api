@@ -5,7 +5,7 @@ pipeline{
     //parameterization
     parameters{
         choice(
-            choices : ['npms', 'maven'],
+            choices : ['npm', 'maven'],
             description: 'to do npm install only when a condition is met',
             name: 'REQUESTED_ACTION'
         )
