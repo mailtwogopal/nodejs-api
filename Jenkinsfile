@@ -1,6 +1,12 @@
 #!/usr/bin/env groovy
 pipeline{
     agent { node {label 'jobs_all'}} //you can specify agent as any like agent any
+
+    //triggers to pollSCM every 5 mins
+    triggers{
+        cron('H/5 * * * *')
+    }
+
     //time out the whole pipeline if it is more than 1 mins
     options{
         timeout(time: 1, unit: 'MINUTES') //unit can be seconds, hours etc. default mins
@@ -30,7 +36,7 @@ pipeline{
                     "tasktwo" : {
                         script{
                             try{
-                                retry(40){ //retrying this step for 3 times
+                                retry(3){ //retrying this step for 3 times
                                     echo "within retry"
                                     sh "npm run build"
                                 }
