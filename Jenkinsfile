@@ -4,7 +4,7 @@ pipeline{
 
     //triggers to pollSCM every 5 mins
     triggers{
-        cron('H/5 * * * *')
+        cron('H */5 * * * *')
     }
 
     //time out the whole pipeline if it is more than 1 mins
