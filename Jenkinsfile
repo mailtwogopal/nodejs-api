@@ -36,12 +36,13 @@ pipeline{
         stage('Install Dependencies'){
             when{
                 //one expression is required inside when
-                expression {params.REQUESTED_ACTION == 'npm'}
+                expression {params.REQUESTED_ACTION == 'npm' }
+            } //when ends here
                     steps{
                         echo 'Installing dependencies'
                         sh "npm install"
             }
-            }
+            
         }
         stage('Build'){
             steps{
