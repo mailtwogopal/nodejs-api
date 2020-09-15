@@ -26,9 +26,13 @@ pipeline{
                     "tasktwo" : {
                         script{
                             try{
-                                sh "npm run build"
+                                retry(3){
+                                    echo "within retry"
+                                    sh "npm run build"
+                                }
                             }
                             catch(err){
+                                currentBuild.result = "FAILURE"
                                 echo "Error caught is : ${err}"
                             }  
                         }                                 
