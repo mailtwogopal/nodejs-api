@@ -13,7 +13,7 @@ var app = express()
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended : true}))
 app.listen(port, () => {
-    console.log('Triggering build using jenkinsfile with cron triggers');
+    console.log('after force build trying with cron triggers');
     console.log('app running on port' + port);
     mongoClient.connect(url, {useNewUrlParser : true}, (error, client) => {
         if(error) {

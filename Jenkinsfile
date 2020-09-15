@@ -9,7 +9,7 @@ pipeline{
 
     //time out the whole pipeline if it is more than 1 mins
     options{
-        timeout(time: 1, unit: 'MINUTES') //unit can be seconds, hours etc. default mins
+        timeout(time: 15, unit: 'MINUTES') //unit can be seconds, hours etc. default mins
     }
     stages{
         stage('Git checkout'){
