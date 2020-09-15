@@ -14,15 +14,15 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended : true}))
 app.listen(port, () => {
     console.log('after force build trying with cron triggers');
-    console.log('app running on port' + port);
-    mongoClient.connect(url, {useNewUrlParser : true}, (error, client) => {
+    console.log('app running on port: ' + port);
+    /* mongoClient.connect(url, {useNewUrlParser : true}, (error, client) => {
         if(error) {
             throw error;
         }
         database = client.db(dbname);
         collection = database.collection(collectionname);
         console.log("connection established to " + dbname);
-    });
+    }); */
 })
 
 app.use('/', routes)
