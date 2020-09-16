@@ -37,7 +37,7 @@ pipeline{
         stage('Git checkout'){
             steps{
                 echo 'Checkout code from github repo'
-                echo "user defined env var is ${server_cred}"
+                echo "user defined env var is ${server_cred_USR}"
                 git branch: 'master', url: 'https://github.com/mailtwogopal/nodejs-api.git'
             }
         }
