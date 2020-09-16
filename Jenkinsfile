@@ -48,7 +48,7 @@ pipeline{
             } //when ends here
                     steps{
                         withCredentials([
-                            usernamePassword(credentials: 'dummycredentials', 
+                            usernamePassword(credentialsId: 'dummycredentials', 
                             usernameVariable: USER,
                             passwordVariable: PWD)
                         ]){
