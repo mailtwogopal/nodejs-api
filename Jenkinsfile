@@ -49,10 +49,10 @@ pipeline{
                     steps{
                         withCredentials([
                             usernamePassword(credentialsId: 'dummycredentials', 
-                            usernameVariable: USER,
-                            passwordVariable: PWD)
+                            usernameVariable: user,
+                            passwordVariable: password)
                         ]){
-                            echo "inside withCredentials: ${USER}"
+                            echo "inside withCredentials: ${user}"
                         }
                         echo "Build number is ${BUILD_NUMBER}"
                         echo 'Installing dependencies'
