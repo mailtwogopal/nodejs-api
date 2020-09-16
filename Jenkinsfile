@@ -2,6 +2,13 @@
 pipeline{
     agent { node {label 'jobs_all'}} //you can specify agent as any like "agent any"
 
+    //environment variables - defined in this block outside of stage is 
+    //accessible to all stages - global
+    environment{
+        buildnum = env.BUILD_NUMBER //Jenkins provided variable example
+        user = 'User'
+    }
+
     //parameterization
     parameters{
         choice(
@@ -30,6 +37,7 @@ pipeline{
         stage('Git checkout'){
             steps{
                 echo 'Checkout code from github repo'
+                echo "user defined env var is ${user}"
                 git branch: 'master', url: 'https://github.com/mailtwogopal/nodejs-api.git'
             }
         }
@@ -39,6 +47,7 @@ pipeline{
                 expression {params.REQUESTED_ACTION == 'npm' }
             } //when ends here
                     steps{
+                        echo "Build number is ${buildnum}"
                         echo 'Installing dependencies'
                         sh "npm install"
             }
