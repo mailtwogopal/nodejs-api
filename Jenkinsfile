@@ -47,7 +47,7 @@ pipeline{
                 expression {params.REQUESTED_ACTION == 'npm' }
             } //when ends here
                     steps{
-                        echo "Build number is ${buildnum}"
+                        echo "Build number is ${BUILD_NUMBER}"
                         echo 'Installing dependencies'
                         sh "npm install"
             }
