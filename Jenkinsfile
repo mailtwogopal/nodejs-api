@@ -47,6 +47,13 @@ pipeline{
                 expression {params.REQUESTED_ACTION == 'npm' }
             } //when ends here
                     steps{
+                        withCredentials([
+                            usernamePassword(credentials: 'dummycredentials', 
+                            usernameVariable: USER,
+                            passwordVariable: PWD)
+                        ]){
+                            echo "inside withCredentials: ${USER}"
+                        }
                         echo "Build number is ${BUILD_NUMBER}"
                         echo 'Installing dependencies'
                         sh "npm install"
