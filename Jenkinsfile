@@ -6,7 +6,7 @@ pipeline{
     //accessible to all stages - global
     environment{
         BUILD_NUMBER = "1.0.0" //Jenkins provided variable example
-        user = 'User'
+        server_cred = credentials('dummycredentials') //dummycredentials is the credentials ID coming from jenkins credentials manager
     }
 
     //parameterization
@@ -37,7 +37,7 @@ pipeline{
         stage('Git checkout'){
             steps{
                 echo 'Checkout code from github repo'
-                echo "user defined env var is ${user}"
+                echo "user defined env var is ${server_cred}"
                 git branch: 'master', url: 'https://github.com/mailtwogopal/nodejs-api.git'
             }
         }
