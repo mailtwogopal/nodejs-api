@@ -49,8 +49,8 @@ pipeline{
                     steps{
                         withCredentials([
                             usernamePassword(credentialsId: 'dummycredentials', 
-                            usernameVariable: user,
-                            passwordVariable: password)
+                            usernameVariable: 'user',
+                            passwordVariable: 'password')
                         ]){
                             echo "inside withCredentials: ${user}"
                         }
