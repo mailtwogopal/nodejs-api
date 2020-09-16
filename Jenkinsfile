@@ -5,7 +5,7 @@ pipeline{
     //environment variables - defined in this block outside of stage is 
     //accessible to all stages - global
     environment{
-        env.BUILD_NUMBER = "1.0.0" //Jenkins provided variable example
+        BUILD_NUMBER = "1.0.0" //Jenkins provided variable example
         user = 'User'
     }
 
