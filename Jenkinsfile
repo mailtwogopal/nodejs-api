@@ -1,6 +1,17 @@
 #!/usr/bin/env groovy
+//to import from another groovy file use below example
+  //def grScript = load "functions.groovy"
+  //and access methods by 
+  //grScript.functionname()
+
 pipeline{
     agent { node {label 'jobs_all'}} //you can specify agent as any like "agent any"
+
+    //tools for building projects
+    //supported build tools are maven, gradle, jdk
+    tools{
+        maven 'mymaven' //mymaven is the name configured in global tool config in jenkins
+    }
 
     //environment variables - defined in this block outside of stage is 
     //accessible to all stages - global
@@ -11,7 +22,12 @@ pipeline{
 
     //parameterization
     parameters{
-        choice(
+        //types of parameterization are:
+        // string(name, defaultValue, description) OR
+        //choice(name, description, choices:['1', '2']) - shown in action below
+        //booleanParam(name, defaultValue, description)
+
+        choice( 
             choices : ['npm', 'maven'],
             description: 'to do npm install only when a condition is met',
             name: 'REQUESTED_ACTION'
