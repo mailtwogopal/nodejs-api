@@ -60,7 +60,7 @@ pipeline{
         }*/
         stage('SSH EC2 & setup git'){
             steps{
-            sh "sudo chmod 400 /home/gopalakrishnan/Downloads/node-server.pem"
+            sh "sudo chmod 400 /home/gopalakrishnan/node-server.pem"
             sh "exec ssh-agent bash"
             //sh 'eval "\$(ssh-agent)"'
             sh "ssh-add /home/gopalakrishnan/node-server.pem"
