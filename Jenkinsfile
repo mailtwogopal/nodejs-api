@@ -59,21 +59,27 @@ pipeline{
             } 
         }*/
         stage('SSH EC2 & setup git'){
+            steps{
             sh 'ssh -i "~/Downloads/node-server.pem" ec2-user@ec2-107-23-241-152.compute-1.amazonaws.com'
             sh "sudo yum update -y"
             sh "sudo yum install git -y"
             sh "git --version"
+            }
         }
         stage('Install node in EC2'){
+            steps{
             sh "curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash"
             sh ". ~/.nvm/nvm.sh"
             sh "nvm install node"
             sh "node -v"
             sh "npm -v"
+            }
         }
         stage('clone repository in ec2'){
+            steps{
             sh "git clone https://github.com/mailtwogopal/nodejs-api.git"
             sh "cd nodejs-api"
+            }
         }
         stage('Install Dependencies'){
             when{
@@ -121,7 +127,9 @@ pipeline{
             }
         }
         stage('Test'){
+            steps{
             sh "curl 107.23.241.152:4200/ping"
+            }
         }
     }//end of stages
     post{
