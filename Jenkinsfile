@@ -61,8 +61,8 @@ pipeline{
         stage('SSH EC2 & setup git'){
             steps{
             sh "sudo chmod 400 /home/gopalakrishnan/node-server.pem"
-            sh "exec ssh-agent bash"
-            //sh 'eval "\$(ssh-agent)"'
+            //sh "exec ssh-agent -c"
+            sh "eval `ssh-agent -c`"
             sh "ssh-add /home/gopalakrishnan/node-server.pem"
             sh "ssh -i /home/gopalakrishnan/node-server.pem ec2-user@ec2-107-23-241-152.compute-1.amazonaws.com"
             sh "sudo yum update -y"
