@@ -50,12 +50,30 @@ pipeline{
         timeout(time: 15, unit: 'MINUTES') //unit can be seconds, hours etc. default mins
     }
     stages{
-        stage('Git checkout'){
+        //commenting below stage as it is redundant
+        /* stage('Git checkout'){
             steps{
                 echo 'Checkout code from github repo'
                 echo "user defined env var is ${server_cred_USR}"
                 git branch: 'master', url: 'https://github.com/mailtwogopal/nodejs-api.git'
-            }
+            } */
+        }
+        stage('SSH EC2 & setup git'){
+            sh 'ssh -i "~/Downloads/node-server.pem" ec2-user@ec2-107-23-241-152.compute-1.amazonaws.com'
+            sh "sudo yum update -y"
+            sh "sudo yum install git -y"
+            sh "git --version"
+        }
+        stage('Install node in EC2'){
+            sh "curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash"
+            sh ". ~/.nvm/nvm.sh"
+            sh "nvm install node"
+            sh "node -v"
+            sh "npm -v"
+        }
+        stage('clone repository in ec2'){
+            sh "git clone https://github.com/mailtwogopal/nodejs-api.git"
+            sh "cd nodejs-api"
         }
         stage('Install Dependencies'){
             when{
@@ -76,7 +94,7 @@ pipeline{
             }
             
         }
-        stage('Build'){
+        stage('Build and Deploy'){
             steps{
                 parallel(  //parallel tasks within steps
                     "taskone" : {
@@ -90,7 +108,7 @@ pipeline{
                             try{
                                 retry(3){ //retrying this step for 3 times
                                     echo "within retry"
-                                    sh "npm run build"
+                                    sh "npm start"
                                 }
                             }
                             catch(err){
@@ -101,6 +119,9 @@ pipeline{
                     }
                 )
             }
+        }
+        stage('Test'){
+            sh "curl 107.23.241.152:4200/ping"
         }
     }//end of stages
     post{
