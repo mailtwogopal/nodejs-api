@@ -60,7 +60,8 @@ pipeline{
         }*/
         stage('SSH EC2 & setup git'){
             steps{
-            sh 'ssh -i "~/Downloads/node-server.pem" ec2-user@ec2-107-23-241-152.compute-1.amazonaws.com'
+            sh "sudo chmod 400 /home/gopalakrishnan/Downloads/node-server.pem"
+            sh "ssh -i ~/Downloads/node-server.pem ec2-user@ec2-107-23-241-152.compute-1.amazonaws.com"
             sh "sudo yum update -y"
             sh "sudo yum install git -y"
             sh "git --version"
