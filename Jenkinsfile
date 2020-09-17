@@ -56,8 +56,8 @@ pipeline{
                 echo 'Checkout code from github repo'
                 echo "user defined env var is ${server_cred_USR}"
                 git branch: 'master', url: 'https://github.com/mailtwogopal/nodejs-api.git'
-            } */
-        }
+            } 
+        }*/
         stage('SSH EC2 & setup git'){
             sh 'ssh -i "~/Downloads/node-server.pem" ec2-user@ec2-107-23-241-152.compute-1.amazonaws.com'
             sh "sudo yum update -y"
